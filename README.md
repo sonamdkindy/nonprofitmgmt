@@ -8,7 +8,7 @@ Mock database to be used for managing an education nonprofit that requires track
 These instructions will get you a local copy of the project up and running on your machine.
 
 ### Installing
-```sh
+```
 git clone https://github.com/code-tsunami/nonprofitmgmt
 cd nonprofitmgmt
 ```
