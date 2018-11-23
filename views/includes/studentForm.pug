@@ -1,0 +1,43 @@
+if isUpdate
+	h5 Edit Student
+else
+	h5 Add New Student
+form(id = first_name ? 'editStudent' : 'addStudent', action='/students', method='POST')
+	.form-row.align-items-center
+		.col-sm-6.my-1
+			label(for='name') First Name
+			input#name(type='text', name='first_name', placeholder='Name', value=first_name, required).form-control
+		.col-sm-6.my-1
+			label(for='name') Last Name
+			input#name(type='text', name='last_name', placeholder='Name', value=last_name, required).form-control
+		.col-sm-6.my-1
+			label(for='dob') Date of Birth
+			input#date(type='date', name='dob', value=dob).form-control.mb-2.mr-sm-2
+		.col-sm-6.my-1
+			label(for='in_india') Location
+			.form-check
+				input#inIndia(type='checkbox', name='in_india', value=1).form-check-input
+				label(for='in_india').form-check-label.mb-2.mr-sm-2
+					| India
+		.col-sm-6.my-1
+			label(for='school_id') School
+			
+			select(name='school_id').form-control#school
+				if isUpdate
+					option(value='') NULL
+				each s in schools
+					option(value=s.id, selected = s.id === school_id) #{s.name} (#{s.is_secondary ? 'College/Uni' : 'Elementary'})
+		.col-sm-6.my-1
+			label(for='grad_year') Graduation Year
+			input#datepicker(type='text', name='grad_year', placeholder='YYYY', value=grad_year).form-control.mb-2.mr-sm-2
+		.col-sm-6.my-1
+			label(for='date_started') Date Started
+			input#date(type='date', name='date_started', placeholder='YYYY-MM-DD', value=date_started).form-control.mb-2.mr-sm-2
+		.col-sm-6.my-1
+			label(for='date_ended') Date Ended
+			input#date(type='date', name='date_ended', placeholder='YYYY-MM-DD', value=date_ended).form-control.mb-2.mr-sm-2
+	unless isUpdate
+		button.btn.btn-primary.mb-2.mr-sm-2 Submit
+if isUpdate
+	button(onclick=`updateStudent(${id})`).btn.btn-primary Submit
+	

@@ -1,0 +1,41 @@
+if isUpdate
+	h5 Edit Donation
+else
+	h5 Add New Donation
+form(id = isUpdate ? 'editDonation' : 'addDonation', action='/donations', method='POST')
+	.form-row.align-items-center
+		.col-sm-6.my-1
+			label(for='date') Date
+			input#date(type='date', name='date', placeholder='YYYY-MM-DD', value=date, required).form-control.mb-2.mr-sm-2
+		.col-sm-6.my-1
+			label(for='sponsor_id') Sponsor
+			select(name='sponsor_id', required)#sponsor.form-control.mb-2.mr-sm-2
+				each s in sponsors
+					option(value=s.id, selected = s.id === sponsor_id) #{s.first_name} #{s.last_name}
+		.col-sm-6.my-1
+			label(for='amount') Amount
+			input#amount(type='number', min=1, name='amount', value=amount, required).form-control.mb-2.mr-sm-2
+		.col-sm-4.my-1.text-right
+			.form-check.form-check-inline.pt-4
+				label.form-check-label
+					input.form-check-input(type='radio', name='method', value='check', checked = method === 'check').form-control
+					| Check
+			.form-check.form-check-inline
+				label.form-check-label
+					input.form-check-input(type='radio', name='method', value='paypal', checked = method === 'paypal').form-control
+					| Paypal
+			.form-check.form-check-inline
+				label.form-check-label
+					input.form-check-input(type='radio', name='method', value='direct deposit', checked = method === 'direct deposit').form-control
+					| Direct Deposit
+		.col-sm-2.my-1.text-right
+			label(for='is_grant') Is Grant
+			.form-check
+				input#isSecondary.form-check-input(type='checkbox', name="is_grant", value=1, checked = is_grant === 1)
+				label.form-check-label(for='is_grant')
+					| Yes
+	unless isUpdate
+		button.btn.btn-primary.mb-2.mr-sm-2 Submit
+if isUpdate
+	button(onclick=`updateDonation(${id})`).btn.btn-primary Submit
+	

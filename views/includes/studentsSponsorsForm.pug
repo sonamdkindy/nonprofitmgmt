@@ -1,0 +1,23 @@
+if isUpdate
+	h5 Update Student to Sponsor Relationship
+else
+	h5 Add New Student to Sponsor Relationship
+form(id = isUpdate ? 'editStudentSponsor' : 'addStudentSponsor', action='/studentsSponsors', method='POST')
+	.form-row.align-items-center
+		.col-sm-4.my-1
+			label(for='date_started') Date Started
+			input#date(type='date', name='date_started', placeholder='YYYY-MM-DD', value=date_started, required).form-control.mb-2.mr-sm-2
+		.col-sm-4.my-1
+			label(for='sponsor_id') Sponsor
+			select(name='sponsor_id')#sponsor.form-control.mb-2.mr-sm-2
+				each s in sponsors
+					option(value=s.id, selected = s.id === sponsor_id) #{s.first_name} #{s.last_name}
+		.col-sm-4.my-1
+			label(for='student_id') Student
+			select(name='student_id')#sponsor.form-control.mb-2.mr-sm-2
+				each s in students
+					option(value=s.id, selected = s.id === student_id) #{s.first_name} #{s.last_name}
+	unless isUpdate
+		button.btn.btn-primary.mb-2.mr-sm-2 Submit
+if isUpdate
+	button(onclick=`updateStudentSponsor(${student_id}, ${sponsor_id})`).btn.btn-primary Submit

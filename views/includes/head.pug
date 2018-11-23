@@ -1,0 +1,16 @@
+nav.navbar.navbar-expand-lg.navbar-light.bg-light
+	a.navbar-brand(href='/') 
+		img(src='../../img/lotus.png').navLogo
+	button.navbar-toggler(type='button', data-toggle='collapse', data-target='#collapseContent', aria-controls='collapseContent', aria-expanded='false', aria-label='Toggle navigation')
+		span.navbar-toggler-icon
+	#collapseContent.collapse.navbar-collapse
+		.navbar-nav
+			a.nav-item.nav-link.active(href='/')
+				| Home 
+				span.sr-only (current)
+			a.nav-item.nav-link(href='/schools') Schools
+			a.nav-item.nav-link(href='/students') Students
+			a.nav-item.nav-link(href='/sponsors') Sponsors
+			a.nav-item.nav-link(href='/donations') Donations
+			a.nav-item.nav-link(href='/studentsDonations') Students' Donations
+			a.nav-item.nav-link(href='/studentsSponsors') Students' Sponsors

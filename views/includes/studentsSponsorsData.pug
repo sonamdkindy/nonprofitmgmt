@@ -1,0 +1,23 @@
+h4.pt-4 List of #{dbName}
+table#data.table.table-striped
+	thead
+		tr
+			th Date Started
+			th Student
+			th Sponsor
+			th Edit
+			th Delete
+	if studentsSponsors
+		tbody
+		each ss in studentsSponsors
+			tr
+				td
+					if ss.date_started
+						- let jsDate = new Date(ss.date_started);
+						| #{jsDate.toISOString().substr(0, 10)}
+				td #{ss.student_name}
+				td #{ss.sponsor_name}
+				td 
+					a(href=`/studentsSponsors/${ss.student_id}/${ss.sponsor_id}`).edit.btn.btn-success Edit
+				td
+					button(onclick=`deleteStudentSponsor(${ss.student_id}, ${ss.sponsor_id})`).delete.btn.btn-danger Delete

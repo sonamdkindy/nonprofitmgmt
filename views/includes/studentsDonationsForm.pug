@@ -1,0 +1,35 @@
+if isUpdate
+	h5 Update Information for a Donation to a Student
+else
+	h5 Allocate a Donation To a Student
+form(id = isUpdate ? 'editStudentDonation' : 'addStudentDonation')
+	.form-row.align-items-center
+		.col-sm-6.my-1
+			label(for='donation_id') Donation
+			select(name='donation_id', required)#sponsor.form-control.mb-2.mr-sm-2
+				each d in donations
+					option(value=d.id, selected = d.id === donation_id) 
+						| #{d.sponsor_name}'s donation of $#{d.amount} 
+						if d.date
+							- let jsDate = new Date(d.date);
+							- jsDate = jsDate.toISOString().substr(0, 10)
+							| on #{jsDate}
+				if !isUpdate && donations.length === 0
+					option(selected, disabled) ALL DONATIONS ACCOUNTED FOR
+		.col-sm-4.my-1
+			label(for='student_id') Student
+			select(name='student_id', required)#sponsor.form-control.mb-2.mr-sm-2
+				if donations.length !== 0
+					each s in students
+						option(value=s.id, selected = s.id === student_id) #{s.first_name} #{s.last_name}
+				else
+					option(selected, disabled) ALL DONATIONS ACCOUNTED FOR
+		.col-sm-6.my-1
+			label(for='name') Percent of Total Donation Given To Student
+			input#name(type='number', name='percent_given', placeholder='Percent', min=1, max=100, value=percent_given, required).form-control
+		.col-sm-6.my-1
+			p.pt-4#errMsg
+	unless isUpdate
+		button(disabled = donations.length === 0)#add.btn.btn-primary.mb-2.mr-sm-2 Submit
+if isUpdate
+	button(onclick=`updateStudentsDonation(${student_id}, ${donation_id})`).btn.btn-primary Submit

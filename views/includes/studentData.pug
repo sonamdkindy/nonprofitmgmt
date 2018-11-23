@@ -1,0 +1,50 @@
+.dataContainer
+	h4.pt-4 List of #{dbName}
+	table#data.table.table-striped
+		thead
+			tr
+				th First Name
+				th Last Name
+				th School
+				th Is Uni?
+				th In India
+				th DOB
+				th Grad Year
+				th Date Started
+				th Date Ended
+				th Edit
+				th Delete
+		if students
+			tbody
+			each s in students
+				tr
+					td#firstName #{s.first_name}
+					td#lastName #{s.last_name}
+					td#schoolName #{s.school_name}
+					td#isSecondary 
+						if s.is_secondary === 1
+							| YES
+						else if s.is_secondary === 0
+							| NO
+					td#inIndia 
+						if s.in_india === 1
+							| YES
+						else if s.in_india === 0
+							| NO
+					td#date 
+						if s.dob
+							- let jsDate = new Date(s.dob);
+							| #{jsDate.toISOString().substr(0, 10)}
+					td#gradYear #{s.grad_year}
+					td#dateStarted 
+						if s.date_started
+							- let jsDate = new Date(s.date_started);
+							| #{jsDate.toISOString().substr(0, 10)}
+					td#dateEnded 
+						if s.date_ended
+							- let jsDate = new Date(s.date_ended);
+							| #{jsDate.toISOString().substr(0, 10)}
+					td 
+						a(href=`/students/${s.id}`).edit.btn.btn-success.mr-sm-2 Edit
+					td
+						button(onclick=`deleteStudent(${s.id})`).delete.btn.btn-danger.mr-sm-2 Delete

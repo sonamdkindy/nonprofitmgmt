@@ -1,0 +1,52 @@
+.dataContainer
+	form#filter
+		.form-row.align-items-center
+			.col-sm-2.my-1
+				if isFilter
+					h5 Currently Filtering By Student:
+				else
+					h5 Filter By Student:
+			.col-sm-3.my-1
+				select#filterBy(name='student_id', required).form-control
+					each s in students
+						option(value=s.id, selected = s.id == filterBy) #{s.first_name} #{s.last_name}
+			.col-sm-3.my-1
+				a#filterOn.btn.btn-light.mr-sm-2 ✓
+				a#filterOff.btn.btn-light.mr-sm-2 𝘟
+
+	h4.pt-4 List of #{dbName}
+	table#data.table.table-striped
+		thead
+			tr
+				th Date
+				th Student
+				th Sponsor
+				th Donation Amount
+				th % of Total (Total)
+				th Grant?
+				th Edit
+				th Delete
+		if studentsDonations
+			tbody
+			each sd in studentsDonations
+				tr
+					td
+						if sd.date
+							- let jsDate = new Date(sd.date);
+							| #{jsDate.toISOString().substr(0, 10)}
+					td #{sd.student_name}
+					td #{sd.sponsor_name}
+					- let portion = sd.amount * (sd.percent_given * 0.01);
+					- portion = portion.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
+					td $#{portion}
+					- const total = sd.amount.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
+					td #{sd.percent_given}% ($#{total})
+					td
+						if sd.is_grant === 1
+							| YES
+						else
+							| NO
+					td 
+						a(href=`/studentsDonations/${sd.student_id}/${sd.donation_id}`).edit.btn.btn-success Edit
+					td
+						button(onclick=`deleteStudentsDonation(${sd.student_id}, ${sd.donation_id})`).delete.btn.btn-danger Delete

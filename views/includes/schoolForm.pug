@@ -1,0 +1,13 @@
+h5 Add New School
+form(id='addStudent', action="/schools", method="POST")
+	.form-row.align-items-center
+		.col-sm-6.my-1
+			label(for='name') School/University Name
+			input#name(type='text', name='name', placeholder='Name' required).form-control
+		.col-sm-3.my-1
+			label(for='in_india') Type of School
+			.form-check
+				input#isSecondary.form-check-input.mb-2.mr-sm-2(type='checkbox', name="is_secondary", value=0)
+				label.form-check-label(for='is_secondary')
+					| Primary (Elementary)
+	button.btn.btn-primary.mb-2.mr-sm-2 Submit

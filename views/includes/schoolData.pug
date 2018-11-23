@@ -1,0 +1,20 @@
+h4.pt-4 List of 
+	span.dbName #{dbName}
+table#data.table.table-striped
+	thead
+		tr
+			th Name
+			th University/College
+			th Delete
+	if schools
+		tbody
+		each s in schools
+			tr
+				td#name #{s.name}
+				td#secondary 
+					if s.is_secondary === 1
+						| YES
+					else 
+						| NO
+				td
+					button(onclick=`deleteSchool(${s.id})`).delete.btn.btn-danger.mr-sm-2 Delete

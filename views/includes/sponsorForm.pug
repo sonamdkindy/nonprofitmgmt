@@ -1,0 +1,32 @@
+if isUpdate
+	h5 Edit Sponsor
+else
+	h5 Add New Sponsor
+form(id = first_name ? 'editSponsor' : 'addSponsor', action='/sponsors', method='POST')
+	.form-row.align-items-center
+		.col-sm-6.my-1
+			label(for='name') First Name
+			input#name(type='text', name='first_name', placeholder='Name', value=first_name, required).form-control
+		.col-sm-6.my-1
+			label(for='name') Last Name
+			input#name(type='text', name='last_name', placeholder='Name', value=last_name, required).form-control
+		.col-sm-6.my-1
+			label(for='street_address') Street Address
+			input#streetName(type='text', name='street_address', placeholder='1234 Dreary Ln', value=street_address).form-control.mb-2.mr-sm-2
+		.col-sm-2.my-1
+			label(for='city') City
+			input#city(type='text', name='city', placeholder='Madison', value=city).form-control.mb-2.mr-sm-2
+		.col-sm-2.my-1
+			label(for='state') State
+			input#state(type='text', name='state', placeholder='WI', value=state).form-control.mb-2.mr-sm-2
+		.col-sm-2.my-1
+			label(for='zip_code') Zip Code
+			input#zipCode(type='text', name='zip_code', placeholder='53703', value=zip_code, pattern='[0-9]{5}').form-control.mb-2.mr-sm-2
+		.col-sm-6.my-1
+			label(for='date_started') Date Started
+			input#dateStarted(type='date', name='date_started', placeholder='YYYY-MM-DD', value=date_started).form-control.mb-2.mr-sm-2
+	unless isUpdate
+		button.btn.btn-primary.mb-2.mr-sm-2 Submit
+if isUpdate
+	button(onclick=`updateSponsor(${id})`).btn.btn-primary Submit
+		

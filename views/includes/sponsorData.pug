@@ -1,0 +1,32 @@
+.dataContainer
+	h4.pt-4 List of #{dbName}
+	table#data.table.table-striped
+		thead
+			tr
+				th First Name
+				th Last Name
+				th Street Address
+				th City
+				th State
+				th Zip Code
+				th Date Started
+				th Edit
+				th Delete
+		if sponsors
+			tbody
+			each s in sponsors
+				tr
+					td#firstName #{s.first_name}
+					td#lastName #{s.last_name}
+					td#address #{s.street_address} 
+					td #{s.city}
+					td #{s.state} 
+					td #{s.zip_code}
+					td#dateStarted
+						if s.date_started
+							- let jsDate = new Date(s.date_started);
+							| #{jsDate.toISOString().substr(0, 10)}
+					td 
+						a(href=`/sponsors/${s.id}`).edit.btn.btn-success.mr-sm-2 Edit
+					td
+						button(onclick=`deleteSponsor(${s.id})`).delete.btn.btn-danger.mr-sm-2 Delete

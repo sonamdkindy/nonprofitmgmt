@@ -1,0 +1,32 @@
+h4.pt-4 List of #{dbName}
+table#data.table.table-striped
+	thead
+		tr
+			th Date
+			th Sponsor
+			th Amount
+			th Method
+			th Grant
+			th Edit
+			th Delete
+	if donations
+		tbody
+		each d in donations
+			tr
+				td
+					if d.date
+						- let jsDate = new Date(d.date);
+						| #{jsDate.toISOString().substr(0, 10)}
+				td #{d.sponsor_name}
+				- let currency = d.amount.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
+				td $#{currency}
+				td #{d.method}
+				td
+					if d.is_grant === 1
+						| YES
+					else
+						| NO
+				td 
+					a(href=`/donations/${d.id}`).edit.btn.btn-success Edit
+				td
+					button(onclick=`deleteDonation(${d.id})`).delete.btn.btn-danger Delete
